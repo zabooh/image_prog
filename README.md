@@ -36,6 +36,7 @@ For network-based remote update:
 ### Usage:
 1. **Copy script to target system:**
    ```bash
+   ssh-keygen -R 169.254.45.100
    scp -O prog.sh root@169.254.45.100:/sbin/
    ssh root@169.254.45.100 "chmod 744 /sbin/prog.sh"
    ```
@@ -363,3 +364,4 @@ For issues specific to LAN9662 hardware or U-Boot configuration, consult:
 
 
 **Note**: This script is specifically designed for LAN9662 SoC systems with the described partition layout. Modification may be required for different hardware configurations.
+
