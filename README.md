@@ -36,15 +36,15 @@ For network-based remote update:
 ### Usage:
 1. **Copy script to target system:**
    ```bash
-   scp -O prog.sh root@<TARGET_IP>:/sbin/
-   ssh root@<TARGET_IP> "chmod 744 /sbin/prog.sh"
+   scp -O prog.sh root@169.254.45.100:/sbin/
+   ssh root@169.254.45.100 "chmod 744 /sbin/prog.sh"
    ```
 2. **Prepare image:**
    Have `brsdk_standalone_arm.ext4.gz` ready on your host computer.
 
 3. **Run the script:**
    ```bash
-   ssh root@<TARGET_IP> "/sbin/prog.sh"
+   ssh root@169.254.45.100 "/sbin/prog.sh"
    ```
 
 4. **Follow instructions:**
@@ -360,5 +360,6 @@ For issues specific to LAN9662 hardware or U-Boot configuration, consult:
 - Embedded Linux Build System Documentation
 
 ---
+
 
 **Note**: This script is specifically designed for LAN9662 SoC systems with the described partition layout. Modification may be required for different hardware configurations.
