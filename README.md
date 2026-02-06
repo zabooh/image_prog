@@ -1,5 +1,65 @@
 # LAN9662 Rootfs Update Script
 
+## Update Methods
+
+## Quick Start
+
+This script performs a safe A/B rootfs update for the LAN9662 SoC:
+
+### Prerequisites:
+- Running SSH Dropbear server on the target device
+- Root user with password authentication enabled
+
+### Method 1: Direct UART Console (TeraTerm)
+
+For direct console access without network setup:
+
+1. **Prepare data partition:**
+- if the programming script isn't already available, then copy from host (Windows) to target (LAN9662) with:
+- scp -O prog.sh root@169.254.45.100:/sbin
+- in the target console ensure execution rights with
+- chmod 744 /sbin/prog.sh
+- and execute script with 
+- /sbin/prog.sh
+- The script will format `/dev/mmcblk0p7` and mount it to `/data`.
+
+2. **Copy image file:**
+   - Transfer `brsdk_standalone_arm.ext4.gz` to `/data/` using these method:
+   - scp -O brsdk_standalone_arm.ext4.gz root@169.254.45.100:/data/
+3. **Continue script:**
+   - Press ENTER in the script to continue with the update process
+   - The script will extract and install the image automatically
+
+### Method 2: SSH Remote Access
+
+For network-based remote update:
+
+
+### Usage:
+1. **Copy script to target system:**
+   ```bash
+   scp -O prog.sh root@<TARGET_IP>:/sbin/
+   ssh root@<TARGET_IP> "chmod 744 /sbin/prog.sh"
+   ```
+
+2. **Fix line endings (if copying from Windows):**
+   ```bash
+   ssh root@<TARGET_IP> "sed -i 's/\r$//' /sbin/prog.sh"
+   ```
+
+3. **Prepare image:**
+   Have `brsdk_standalone_arm.ext4.gz` ready on your host computer.
+
+4. **Run the script:**
+   ```bash
+   ssh root@<TARGET_IP> "/sbin/prog.sh"
+   ```
+
+5. **Follow instructions:**
+   The script will guide you through the SCP upload process and perform the update automatically.
+
+**Important:** Root privileges required, active network connection to target device necessary.
+
 ## Overview
 
 The `prog.sh` script is a comprehensive rootfs update utility designed for the LAN9662 System-on-Chip (SoC). It implements a safe A/B partition update mechanism that allows for reliable firmware updates without the risk of bricking the device.
